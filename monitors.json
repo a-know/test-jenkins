@@ -1,0 +1,372 @@
+{
+    "monitors": [
+        {
+            "id": "2WKwFWNNXA1",
+            "name": "[cpu credit 枯渇] cpu.steal.percentage",
+            "type": "host",
+            "metric": "cpu.steal.percentage",
+            "operator": ">",
+            "warning": 4,
+            "critical": 5,
+            "duration": 5,
+            "maxCheckAttempts": 1,
+            "scopes": [
+                "grass-graph"
+            ],
+            "excludeScopes": [
+                "mastodon"
+            ]
+        },
+        {
+            "id": "2XbN2dUedtJ",
+            "name": "[ec2.status_check_failed] instance check",
+            "type": "host",
+            "metric": "custom.ec2.status_check_failed.instance",
+            "operator": ">",
+            "warning": 0,
+            "critical": 0,
+            "duration": 5,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "2XbN4ZvqACy",
+            "name": "[ec2.status_check_failed] system check",
+            "type": "host",
+            "metric": "custom.ec2.status_check_failed.system",
+            "operator": ">",
+            "warning": 0,
+            "critical": 0,
+            "duration": 5,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "378djcMXaB7",
+            "name": "[gg lb] LB へのリクエストカウント",
+            "memo": "このアラートが上がるということは LB にリクエストが来ていないということ",
+            "type": "host",
+            "notificationInterval": 60,
+            "metric": "custom.elb.count.request_count",
+            "operator": "<",
+            "warning": null,
+            "critical": 1,
+            "duration": 5,
+            "maxCheckAttempts": 1,
+            "scopes": [
+                "grass-graph: lb"
+            ]
+        },
+        {
+            "id": "3iCLJuZu4To",
+            "name": "[grass-graph] ユニークユーザー数",
+            "type": "host",
+            "metric": "custom.images.generated.count",
+            "operator": ">",
+            "warning": 50,
+            "critical": 53,
+            "duration": 1,
+            "maxCheckAttempts": 1,
+            "scopes": [
+                "grass-graph: webapp"
+            ]
+        },
+        {
+            "id": "2WKwLfSVjk3",
+            "name": "[t2 burst 多発] custom.ec2.cpu_credit.balance",
+            "memo": "credit が無くなるとバースト不可となり、\nCPU性能が極端に低下する（cpu.steal が増加する）ため注意が必要。\n自然回復が見込めない場合はインスタンスの stop/start を実施して下さい。",
+            "type": "host",
+            "metric": "custom.ec2.cpu_credit.balance",
+            "operator": "<",
+            "warning": 18,
+            "critical": 15,
+            "duration": 3,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "36c824us6dC",
+            "name": "custom.elb.httpcode_backend.5xx",
+            "type": "host",
+            "metric": "custom.elb.httpcode_backend.5xx",
+            "operator": ">",
+            "warning": 2,
+            "critical": 2,
+            "duration": 5,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "2P4pf4Bw72N",
+            "name": "logged-in users number",
+            "type": "host",
+            "notificationInterval": 30,
+            "metric": "custom.linux.users.users",
+            "operator": ">",
+            "warning": 1,
+            "critical": 2,
+            "duration": 1,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "3je5vs4PjkA",
+            "name": "[filesystem] over 90%",
+            "type": "host",
+            "metric": "disk%",
+            "operator": ">",
+            "warning": null,
+            "critical": 90,
+            "duration": 1,
+            "maxCheckAttempts": 1,
+            "scopes": [
+                "mastodon: all"
+            ]
+        },
+        {
+            "id": "3jNw3VEuzsq",
+            "name": "CPU %",
+            "type": "host",
+            "metric": "cpu%",
+            "operator": ">",
+            "warning": 95,
+            "critical": 98,
+            "duration": 5,
+            "maxCheckAttempts": 10,
+            "scopes": [
+                "grass-graph: webapp"
+            ]
+        },
+        {
+            "id": "32GkqpWqgYU",
+            "name": "Filesystem %",
+            "type": "host",
+            "metric": "disk%",
+            "operator": ">",
+            "warning": 90,
+            "critical": 93,
+            "duration": 3,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "2NS22JTcycs",
+            "name": "connectivity",
+            "type": "connectivity"
+        },
+        {
+            "id": "2RLR5HxsctW",
+            "name": "[blog.a-know.me] リアルタイム訪問者数",
+            "type": "service",
+            "service": "blog_a-know_me",
+            "metric": "custom.active-visitors.number",
+            "operator": ">",
+            "warning": 19,
+            "critical": 29,
+            "duration": 1,
+            "maxCheckAttempts": 1
+        },
+        {
+            "id": "2WtjGnQYxn3",
+            "name": "[blog-metricks] bookmark-count",
+            "memo": "旧・a-know.moshimo.works/blog_metricks/bookmarks",
+            "type": "external",
+            "method": "GET",
+            "url": "https://a-know-rails.herokuapp.com/blog_metrics/bookmarks",
+            "maxCheckAttempts": 3,
+            "service": "rails-util",
+            "responseTimeCritical": 10000,
+            "responseTimeWarning": 5000,
+            "responseTimeDuration": 5,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "2WtnRhjMgeb",
+            "name": "[blog-metricks] realtime visitor number",
+            "memo": "旧・a-know.moshimo.works/blog_metricks/active_visitors",
+            "type": "external",
+            "method": "GET",
+            "url": "https://a-know-rails.herokuapp.com/blog_metrics/active_visitors",
+            "maxCheckAttempts": 10,
+            "service": "rails-util",
+            "responseTimeCritical": 13000,
+            "responseTimeWarning": 10000,
+            "responseTimeDuration": 10,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "2Wtmqq6Fabh",
+            "name": "[blog-metricks] subscribers-count",
+            "memo": "旧・a-know.moshimo.works/blog_metricks/subscribers",
+            "type": "external",
+            "method": "GET",
+            "url": "https://a-know-rails.herokuapp.com/blog_metrics/subscribers",
+            "maxCheckAttempts": 3,
+            "service": "rails-util",
+            "responseTimeCritical": 10000,
+            "responseTimeWarning": 5000,
+            "responseTimeDuration": 5,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3m3E8PhtXnJ",
+            "name": "[external] k8s cluster",
+            "type": "external",
+            "method": "GET",
+            "url": "https://moshi-moshi.moshimo.works/heartbeat",
+            "maxCheckAttempts": 3,
+            "service": "k8s",
+            "responseTimeCritical": 10000,
+            "responseTimeWarning": 8000,
+            "responseTimeDuration": 1,
+            "certificationExpirationCritical": 10,
+            "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3jWSGP1scsy",
+            "name": "[external] mastodon about page",
+            "type": "external",
+            "method": "GET",
+            "url": "https://mstdn4.a-know.me/about",
+            "maxCheckAttempts": 3,
+            "service": "mastodon",
+            "responseTimeCritical": 10000,
+            "responseTimeWarning": 8000,
+            "responseTimeDuration": 1,
+            "certificationExpirationCritical": 10,
+            "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3mXkUjR46wY",
+            "name": "[external] moshi-moshi endpoint",
+            "type": "external",
+            "method": "GET",
+            "url": "https://moshi-moshi.moshimo.works/moshimoshi/a_know_blog/9999-99-99-9999?title=ExternalMonitoring",
+            "maxCheckAttempts": 3,
+            "service": "k8s",
+            "responseTimeCritical": 100000,
+            "responseTimeDuration": 3,
+            "certificationExpirationCritical": 15,
+            "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3iVtu2VoqK3",
+            "name": "[external] moshimo-works TOP Page",
+            "type": "external",
+            "method": "GET",
+            "url": "https://about.moshimo.works",
+            "maxCheckAttempts": 3,
+            "service": "moshimo-works",
+            "responseTimeCritical": 10000,
+            "responseTimeWarning": 5000,
+            "responseTimeDuration": 1,
+            "certificationExpirationCritical": 10,
+            "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "2WtmCQTA4G5",
+            "name": "[grass-graph] grass-graph image check",
+            "type": "external",
+            "notificationInterval": 30,
+            "method": "GET",
+            "url": "https://grass-graph.moshimo.works/images/a-know.png",
+            "maxCheckAttempts": 10,
+            "service": "grass-graph",
+            "responseTimeCritical": 5000,
+            "responseTimeWarning": 3000,
+            "responseTimeDuration": 10,
+            "certificationExpirationCritical": 15,
+            "certificationExpirationWarning": 30,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3exbvpVqJyG",
+            "name": "[home.a-know.me] GAE heartbeat Monitor",
+            "type": "external",
+            "method": "GET",
+            "url": "https://home.a-know.me/heartbeat",
+            "maxCheckAttempts": 3,
+            "service": "home_a-know_me",
+            "responseTimeCritical": 5000,
+            "responseTimeWarning": 3000,
+            "responseTimeDuration": 1,
+            "containsString": "OK",
+            "certificationExpirationCritical": 2,
+            "certificationExpirationWarning": 10,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "2WDEGDGBFg7",
+            "name": "[home.a-know.me] GAE Static contents Monitor",
+            "type": "external",
+            "method": "GET",
+            "url": "https://home.a-know.me",
+            "maxCheckAttempts": 3,
+            "service": "home_a-know_me",
+            "responseTimeCritical": 5000,
+            "responseTimeWarning": 3000,
+            "responseTimeDuration": 5,
+            "certificationExpirationCritical": 10,
+            "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "31dkvweLPjy",
+            "name": "[grass-graph] ユニークユーザー数（削除予定）",
+            "memo": "各インスタンスにおけるユニークユーザー数のうち、MAX値に対する監視。",
+            "type": "expression",
+            "expression": "max(group(service('grass-graph', 'grass-graph.blue.images.count'),service('grass-graph', 'grass-graph.green.images.count')))",
+            "operator": ">",
+            "warning": 47,
+            "critical": 50
+        }
+    ]
+}
