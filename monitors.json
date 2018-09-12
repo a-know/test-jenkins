@@ -146,7 +146,10 @@
         {
             "id": "2NS22JTcycs",
             "name": "connectivity",
-            "type": "connectivity"
+            "type": "connectivity",
+            "excludeScopes": [
+                "PC"
+            ]
         },
         {
             "id": "2RLR5HxsctW",
@@ -300,7 +303,6 @@
             "id": "2WtmCQTA4G5",
             "name": "[grass-graph] grass-graph image check",
             "type": "external",
-            "notificationInterval": 30,
             "method": "GET",
             "url": "https://grass-graph.moshimo.works/images/a-know.png",
             "maxCheckAttempts": 10,
@@ -351,6 +353,21 @@
             "responseTimeDuration": 5,
             "certificationExpirationCritical": 10,
             "certificationExpirationWarning": 20,
+            "headers": [
+                {
+                    "name": "Cache-Control",
+                    "value": "no-cache"
+                }
+            ]
+        },
+        {
+            "id": "3pYSDzDbSaN",
+            "name": "登壇枠監視",
+            "type": "external",
+            "method": "GET",
+            "url": "https://gbdaitokai.connpass.com/event/96596/",
+            "maxCheckAttempts": 3,
+            "containsString": "7</span>/7</span>人",
             "headers": [
                 {
                     "name": "Cache-Control",
